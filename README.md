@@ -1,2 +1,0 @@
-# comparativo
-# comparativo
