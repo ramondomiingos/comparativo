@@ -18,3 +18,10 @@ C -->B
 
   
 ````
+
+
+## Prepare minikube
+
+``` shell
+brew install minikube
+```

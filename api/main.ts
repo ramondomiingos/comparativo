@@ -44,8 +44,7 @@ app.get('/mysql/extrato',async  (req: Request, res: Response) => {
 
   const token:any = await makeQuery('SELECT comparativo.chave_valor.*  FROM comparativo.chave_valor  where  expiration > STR_TO_DATE( \'' +hour +'\'  , \'%Y-%m-%d %H:%i:%s\') ORDER BY expiration DESC LIMIT 1')
   actions.push('[MYSQL]: Get Token')
-  console.log('veio do db')
-  console.log(token)
+
   if (token?.[0]?.valor){
    
     actions.push('[MYSQL]: Has Token')
@@ -108,7 +107,7 @@ app.get('/redis/extrato',async  (req: Request, res: Response) => {
       .get('http://'+ AppConfig.UNIPOT_HOST + ':8001/token',)
       .then(async function (response) {
         // handle success
-        console.log(response);
+     
         client.set('token',  response.data.token,{EX: 60} );
         actions.push('[REDIS]: set Token');
         actions.push('[AXIOS]: get extrato');
@@ -116,7 +115,7 @@ app.get('/redis/extrato',async  (req: Request, res: Response) => {
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+     
         data = error;
       });
   }
