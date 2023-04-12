@@ -14,7 +14,7 @@ export const getExtrato = async (token:string) =>{
     })
     .catch(function (error) {
       // handle error
-      console.log(error);
+   
       return error
     })
 }

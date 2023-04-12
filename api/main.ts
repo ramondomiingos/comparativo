@@ -42,24 +42,24 @@ app.get('/mysql/extrato',async  (req: Request, res: Response) => {
   let hour =  moment().format('YYYY-MM-DD HH:mm:ss') 
   
 
-  const token:any = await makeQuery('SELECT comparativo.chave_valor.* FROM comparativo.chave_valor  where  expiration <= STR_TO_DATE( \'' +hour +'\'  , \'%Y-%m-%d %H:%i:%s\') ORDER BY expiration DESC LIMIT 1')
+  const token:any = await makeQuery('SELECT comparativo.chave_valor.*  FROM comparativo.chave_valor  where  expiration > STR_TO_DATE( \'' +hour +'\'  , \'%Y-%m-%d %H:%i:%s\') ORDER BY expiration DESC LIMIT 1')
   actions.push('[MYSQL]: Get Token')
   console.log('veio do db')
-  console.log(token[0]['valor'])
-  if (token[0]['valor']){
+  console.log(token)
+  if (token?.[0]?.valor){
    
     actions.push('[MYSQL]: Has Token')
     actions.push('[AXIOS]: get extrato')
-    data = await  getExtrato(token['valor'] ||  '')
+    data = await  getExtrato(token?.[0]?.valor ||  '')
 
    
   }else{
-    actions.push('[REDIS]: no Has Token')
+    actions.push('[MYSQL]: no Has Token')
     actions.push('[AXIOS]: get token api')
     await axios
       .get('http://'+ AppConfig.UNIPOT_HOST + ':8001/token',)
       .then(async function (response) {
-     
+        
         hour =  moment().add(55, 'seconds').format('YYYY-MM-DD HH:mm:ss') 
         await makeQuery( "INSERT INTO comparativo.chave_valor values ( '"+response.data.token+"','token-chave', STR_TO_DATE('"+hour+ "', '%Y-%m-%d %H:%i:%s'))")
         actions.push('[MYSQL]: insert into Token');
@@ -68,7 +68,7 @@ app.get('/mysql/extrato',async  (req: Request, res: Response) => {
       })
       .catch(function (error) {
         // handle error
-        console.log(error);
+        
         data = error;
       });
   }
