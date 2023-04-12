@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: database-sql
+  name: database-sql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: database-sql
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.28.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/comparativo-mynet: "true"
+        io.kompose.service: database-sql
+    spec:
+      containers:
+        - args:
+            - --init-file
+            - /docker-entrypoint-initdb.d/initdb.sql
+            - --default-authentication-plugin=mysql_native_password
+          env:
+            - name: MYSQL_DATABASE
+              value: comparativo
+            - name: MYSQL_HOST
+              value: '%'
+            - name: MYSQL_PASSWORD
+              value: 123456Aa@
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: "false"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456"
+            - name: MYSQL_USER
+              value: user
+            - name: host_cache_size
+              value: "0"
+          image: database-sql
+          name: sql-database
+          ports:
+            - containerPort: 3306
+          resources: {}
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: unipot-docker
+  name: unipot-docker
+spec:
+  ports:
+    - name: "8001"
+      port: 8001
+      targetPort: 8001
+    - name: 8001-tcp
+      port: 8001
+      targetPort: 8001
+  selector:
+    io.kompose.service: unipot-docker
+status:
+  loadBalancer: {}
