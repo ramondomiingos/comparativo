@@ -25,6 +25,7 @@ spec:
         io.kompose.service: user-api-docker
     spec:
       containers:
+
         - env:
             - name: mysql_host
               value: database-sql
@@ -36,6 +37,7 @@ spec:
               value: unipot-docker
           image: user-api-docker
           name: user-api-docker
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8002
           resources: {}

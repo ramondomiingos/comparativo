@@ -24,4 +24,11 @@ C -->B
 
 ``` shell
 brew install minikube
+
+
+minikube image   build -t "db/Dockerfile" -t database-sql "db"         
+minikube image   build -t  "api/Dockerfile" -t user-api-docker "api"    
+minikube image   build -t "uniPot/Dockerfile" -t unipot-docker "uniPot"
+
+kubectl apply -f database-sql-service.yaml,unipot-docker-service.yaml,user-api-docker-service.yaml,database-sql-deployment.yaml,comparativo-mynet-networkpolicy.yaml,redis-service-deployment.yaml,unipot-docker-deployment.yaml,user-api-docker-deployment.yaml
 ```

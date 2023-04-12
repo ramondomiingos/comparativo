@@ -27,6 +27,7 @@ spec:
       containers:
         - image: unipot-docker
           name: unipot-docker
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8001
           resources: {}

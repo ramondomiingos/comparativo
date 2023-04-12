@@ -30,6 +30,7 @@ spec:
               value: "yes"
           image: bitnami/redis:latest
           name: redis-database
+          imagePullPolicy: IfNotPresent
           resources: {}
       restartPolicy: Always
 status: {}

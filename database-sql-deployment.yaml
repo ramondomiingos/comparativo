@@ -46,6 +46,7 @@ spec:
               value: "0"
           image: database-sql
           name: sql-database
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3306
           resources: {}
