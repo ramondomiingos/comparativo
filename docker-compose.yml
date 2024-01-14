@@ -9,8 +9,8 @@ services:
       - mynet
     ports:
       - "3306:3306"
-    command:  --init-file /docker-entrypoint-initdb.d/initdb.sql  --default-authentication-plugin=mysql_native_password 
- 
+    command: --init-file /docker-entrypoint-initdb.d/initdb.sql  --default-authentication-plugin=mysql_native_password
+
     environment:
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_USER=user
@@ -19,7 +19,7 @@ services:
       - MYSQL_DATABASE=comparativo
       - MYSQL_RANDOM_ROOT_PASSWORD=false
       - host_cache_size=0
-     
+
   redis-service:
     container_name: redis-database
     image: 'bitnami/redis:latest'
@@ -65,4 +65,3 @@ services:
 networks:
   mynet:
     driver: bridge
-    
